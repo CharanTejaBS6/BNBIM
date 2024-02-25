@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Life Tracker Form</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom styles can be added here */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5 mb-4">Crop Life Tracker Form</h1>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="plant_name">Plant Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="plant_name"
+            name="plant_name"
+            placeholder="Enter plant name"
+          />
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="buy_seeds_or_saplings"
+            name="buy_seeds_or_saplings"
+          />
+          <label class="form-check-label" for="buy_seeds_or_saplings"
+            >Buy Seeds or Saplings</label
+          >
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="preparation_of_soil_sowing"
+            name="preparation_of_soil_sowing"
+          />
+          <label class="form-check-label" for="preparation_of_soil_sowing"
+            >Preparation of Soil/Sowing</label
+          >
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="adding_manure_and_fertilizers"
+            name="adding_manure_and_fertilizers"
+          />
+          <label class="form-check-label" for="adding_manure_and_fertilizers"
+            >Adding Manure and Fertilizers</label
+          >
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="irrigation"
+            name="irrigation"
+          />
+          <label class="form-check-label" for="irrigation">Irrigation</label>
+        </div>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="harvesting_and_storage"
+            name="harvesting_and_storage"
+          />
+          <label class="form-check-label" for="harvesting_and_storage"
+            >Harvesting and Storage</label
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </body>
+</html>
+{% comment %}
+<button type="submit" class="btn btn-primary">
+  <a href="{% url 'crop_life_track_updates' %}">Save</a>
+</button>
+{% endcomment %}

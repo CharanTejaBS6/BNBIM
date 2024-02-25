@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #f0f0f0;">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card" style="border-color: #2d7ba3;">
+                    <div class="card-header" style="background-color: #2d7ba3; color: #fff;">
+                        <h2 class="text-center">Create an account!</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.username.label_tag }}
+                            {{ form.username }}
+                            <br>
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            <br>
+                            {{ form.password1.label_tag }}
+                            {{ form.password1 }}
+                            <br>
+                            {{ form.password2.label_tag }}
+                            {{ form.password2 }}
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-block mt-4" style="background-color: #2d7ba3; border-color: #2d7ba3;">Sign Up</button>
+                        </form>
+                        <p class="text-center mt-3" style="color: #072230;">Already have an account? <a href="{% url 'login' %}" style="color: #2d7ba3;">Login!</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

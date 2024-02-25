@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Life Track Updates</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card {
+            position: relative;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            background-color: #f9f9f9;
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        .card p strong {
+            font-weight: bold;
+        }
+        .edit-button {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+        h1 {
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Current Crop(s)</h1>
+        <div class="card-container">
+            {% for crop_life_tracker in crop_life_trackers %}
+            <div class="card">
+                <h2>{{ crop_life_tracker.plant_name }}</h2>
+                <p><strong>Buy Seeds or Saplings:</strong> {% if crop_life_tracker.buy_seeds_or_saplings %}Yes{% else %}No{% endif %}</p>
+                <p><strong>Preparation of Soil / Sowing:</strong> {% if crop_life_tracker.preparation_of_soil_sowing %}Yes{% else %}No{% endif %}</p>
+                <p><strong>Adding Manure and Fertilizers:</strong> {% if crop_life_tracker.adding_manure_and_fertilizers %}Yes{% else %}No{% endif %}</p>
+                <p><strong>Irrigation:</strong> {% if crop_life_tracker.irrigation %}Yes{% else %}No{% endif %}</p>
+                <p><strong>Harvesting and Storage:</strong> {% if crop_life_tracker.harvesting_and_storage %}Yes{% else %}No{% endif %}</p>
+                <!-- Edit Button -->
+                <a href="{% url 'edit_crop_life_tracker' crop_life_tracker.id %}">Edit</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

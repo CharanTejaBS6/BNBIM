@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body style="background-color: #f0f0f0">
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card" style="border-color: #2d7ba3">
+            <div
+              class="card-header"
+              style="background-color: #2d7ba3; color: #fff"
+            >
+              <h2 class="text-center">Login here!..</h2>
+            </div>
+            <div class="card-body">
+              <form method="post">
+                {% csrf_token %} {{ form.as_p|safe }}
+                <!-- Use safe filter to render HTML form -->
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-block mt-4"
+                  style="background-color: #2d7ba3; border-color: #2d7ba3"
+                >
+                  Login
+                </button>
+                <h5 style="text-align: center; padding-top: 10px">
+                  Don't You Have An Account?
+                  <a href="{% url 'signup' %}">Signup</a>
+                </h5>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

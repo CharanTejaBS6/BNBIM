@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Tracker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 800px;
+        margin: 80px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+      .order-tracker {
+        list-style-type: none;
+        padding: 0;
+      }
+      .order-step {
+        margin-bottom: 20px;
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-left: 4px solid #ccc;
+        position: relative;
+        transition: background-color 0.3s ease;
+      }
+      .order-step:last-child {
+        margin-bottom: 0;
+      }
+      .order-step.checked {
+        background-color: #269b264e;
+        border-left-color: #0fd216;
+        border-radius: 0px 10px 10px 0px;
+      }
+      .order-step.checked .step-name {
+        color: #06740a;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+      .order-step .step-name {
+        font-weight: bold;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+      .order-step .step-description {
+        color: #479974;
+        padding-top: 10px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        display: none;
+      }
+      .order-step.checked .step-description {
+        display: block;
+      }
+      .order-step .step-timestamp {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        color: #999;
+      }
+      .order-step .step-actions {
+        margin-top: 10px;
+      }
+      .skip-button {
+        background-color: #168250;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        position: absolute;
+        top: 35%;
+        right: 10px;
+      }
+      .skip-button:hover {
+        background-color: #00b34b;
+      }
+      .skipped .skip-button {
+        pointer-events: visible;
+        opacity: 0.4;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin: 20px;
+          padding: 10px;
+        }
+        .order-step {
+          padding: 10px;
+        }
+        .skip-button {
+          top: 30%;
+          right: 5px;
+          font-size: 15px;
+          padding: 3px 5px;
+          background-color: #2c772e;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="text-align: center;color:#479974;">Crop Life Tracker!</h1>
+      <ul class="order-tracker">
+        <li class="order-step">
+          <div class="step-name">Buy Seeds or Saplings</div>
+          <div class="step-description">You bought the seeds...!</div>
+          <div class="step-actions">
+            <input
+              type="checkbox"
+              id="order_placed"
+              name="order_placed"
+              onchange="toggleDescription(this, 0)"
+            />
+            <label for="order_placed">Check when done</label>
+            <button class="skip-button" onclick="skipToNext(this)">Skip</button>
+          </div>
+        </li>
+        <li class="order-step">
+          <div class="step-name">Processing</div>
+          <div class="step-description">Your order is being processed.</div>
+          <div class="step-actions">
+            <input
+              type="checkbox"
+              id="processing"
+              name="processing"
+              onchange="toggleDescription(this, 1)"
+            />
+            <label for="processing">Check when done</label>
+            <button class="skip-button" onclick="skipToNext(this)">Skip</button>
+          </div>
+        </li>
+        <li class="order-step">
+          <div class="step-name">Shipped</div>
+          <div class="step-description">Your order has been shipped.</div>
+          <div class="step-actions">
+            <input
+              type="checkbox"
+              id="shipped"
+              name="shipped"
+              onchange="toggleDescription(this, 2)"
+            />
+            <label for="shipped">Check when done</label>
+            <button class="skip-button" onclick="skipToNext(this)">Skip</button>
+          </div>
+        </li>
+        <li class="order-step">
+          <div class="step-name">Out for Delivery</div>
+          <div class="step-description">Your order is out for delivery.</div>
+          <div class="step-actions">
+            <input
+              type="checkbox"
+              id="out_for_delivery"
+              name="out_for_delivery"
+              onchange="toggleDescription(this, 3)"
+            />
+            <label for="out_for_delivery">Check when done</label>
+            <button class="skip-button" onclick="skipToNext(this)">Skip</button>
+          </div>
+        </li>
+        <li class="order-step">
+          <div class="step-name">Delivered</div>
+          <div class="step-description">Your order has been delivered.</div>
+          <div class="step-actions">
+            <input
+              type="checkbox"
+              id="delivered"
+              name="delivered"
+              onchange="toggleDescription(this, 4)"
+            />
+            <label for="delivered">Check when done</label>
+            <button class="skip-button" onclick="skipToNext(this)">Skip</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      let lastCheckedIndex = -1;
+
+      function toggleDescription(checkbox, index) {
+        var description =
+          checkbox.parentElement.parentElement.querySelector(
+            ".step-description"
+          );
+        if (checkbox.checked) {
+          description.style.display = "block";
+          lastCheckedIndex = index;
+        } else {
+          description.style.display = "none";
+        }
+
+        var parent = checkbox.parentElement.parentElement;
+        if (checkbox.checked && index === lastCheckedIndex) {
+          parent.classList.add("checked");
+        } else {
+          parent.classList.remove("checked");
+          lastCheckedIndex = -1;
+        }
+      }
+
+      function skipToNext(button) {
+        var parent = button.parentElement.parentElement;
+        var checkbox = parent.querySelector('input[type="checkbox"]');
+        if (checkbox.disabled) {
+          checkbox.disabled = false;
+          parent.classList.remove("skipped");
+        } else {
+          checkbox.disabled = true;
+          parent.classList.add("skipped");
+          lastCheckedIndex--;
+        }
+      }
+    </script>
+  </body>
+</html>
